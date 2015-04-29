@@ -1,0 +1,30 @@
+{
+  "name": "fh-mbaas-client",
+  "description": "FeedHenry MBaaS Client",
+  "version": "0.1.0",
+  "author": "FeedHenry",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">+0.8 < 0.11"
+  },
+  "dependencies": {
+    "request": "^2.45.0",
+    "underscore": "1.8.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-fh-build": "~0.0.8",
+    "istanbul": "0.2.11",
+    "jshint": "2.5.2",
+    "mocha": "^2.1.0",
+    "nock": "0.15.0",
+    "plato": "1.0.1",
+    "proxyquire": "0.4.1",
+    "grunt": "0.4.5"
+  },
+  "license": "Copyright (c) 2014 FeedHenry Ltd, All Rights Reserved."
+}
