@@ -13,7 +13,7 @@ module.exports = {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
         admin: function(params, cb){
-          assert.equal(params.resourcePath, "/appforms/forms/someformid");
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
           assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
@@ -42,7 +42,7 @@ module.exports = {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
         admin: function(params, cb){
-          assert.equal(params.resourcePath, "/appforms/forms");
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
           assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
@@ -75,7 +75,7 @@ module.exports = {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
         admin: function(params, cb){
-          assert.equal(params.resourcePath, "/appforms/forms/someformid/deploy");
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid/deploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
           assert.equal(params.data, testForm);
@@ -105,7 +105,7 @@ module.exports = {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
         admin: function(params, cb){
-          assert.equal(params.resourcePath, "/appforms/forms/someformid");
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
           assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");

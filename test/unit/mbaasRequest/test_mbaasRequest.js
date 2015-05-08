@@ -18,14 +18,14 @@ module.exports = {
         assert.ok(_.isEqual(params.body, {}));
         assert.equal(params.json, true);
 
-        return cb(undefined, {status: 200}, {
+        return cb(undefined, {statusCode: 200}, {
           _id: "someformid"
         });
 
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             project: "someprojectid",
             app: "someappid",
@@ -73,8 +73,8 @@ module.exports = {
 
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             project: "someprojectid",
             app: "someappid",
@@ -119,27 +119,24 @@ module.exports = {
     });
   },
   "It Should Perform A File Upload Request": function(done){
+    var mockReadStream = new MockReadStream();
     var mocks = {
-      'request': function(params, cb){
-        assert.ok(!cb, "Expected No Callback");
-        assert.equal(params.url, "https://mbaas.someplace.com/api/app/somedomain/someenv/someprojectid/someappid/some/path/to/upload/file");
+      'request': {
+        post: function(params, cb) {
+          assert.equal(params.url, "https://mbaas.someplace.com/api/app/somedomain/someenv/someprojectid/someappid/some/path/to/upload/file");
 
-        assert.equal(params.headers['x-fh-env-access-key'], "somekeytoaccessmbaasenv");
-        assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
+          assert.equal(params.headers['x-fh-env-access-key'], "somekeytoaccessmbaasenv");
+          assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
 
-        //File Headers
-        assert.equal(params.headers['content-length'], 123456);
-        assert.equal(params.headers['content-type'], "application/pdf");
-        assert.equal(params.method, "POST");
+          //File Headers
+          assert.equal(params.formData["somefile.pdf"].value, mockReadStream);
 
-        assert.equal(params.json, false);
-
-        //Return a readable stream
-        return new MockWriteStream();
+          cb(undefined, {statusCode: 200}, {status: "ok"});
+        }
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             project: "someprojectid",
             app: "someappid",
@@ -151,19 +148,11 @@ module.exports = {
       }
     };
 
-    var mockReadStream = new MockReadStream();
-
-    //Checking to see if the data was called.
-    var dataCalled = false;
-
-    mockReadStream.on('data', function(data){
-      dataCalled = true;
-    });
-
     var params = {
       environment: "someenv",
       domain: "somedomain",
       resourcePath: "/some/path/to/upload/file",
+      fileId: "somefileid",
       data: {
         stream: mockReadStream,
         name: "somefile.pdf",
@@ -177,10 +166,10 @@ module.exports = {
 
     var mbaasRequest = proxyquire('../../../lib/mbaasRequest/mbaasRequest.js', mocks);
 
-    mbaasRequest.app(params, function(err){
+    mbaasRequest.app(params, function(err, result){
       assert.ok(!err, "Expected No Error: " + JSON.stringify(err));
 
-      assert.equal(dataCalled, true);
+      assert.equal(result.status, "ok");
 
       done();
     });
@@ -188,7 +177,7 @@ module.exports = {
   "It Should Perform An Admin API Request": function(done){
     var mocks = {
       'request': function(params, cb){
-        assert.equal(params.url, "https://mbaas.someplace.com/api/mbaas/somedomain/someenv/some/path/to/resource");
+        assert.equal(params.url, "https://mbaas.someplace.com/api/mbaas/some/path/to/resource");
 
         assert.equal(params.headers.host, "mbaas.someplace.com");
         assert.equal(params.auth.user, "someusername");
@@ -198,14 +187,14 @@ module.exports = {
         assert.ok(_.isEqual(params.body, {}));
         assert.equal(params.json, true);
 
-        return cb(undefined, {status: 200}, {
+        return cb(undefined, {statusCode: 200}, {
           _id: "someadminformid"
         });
 
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             username: "someusername",
             password: "somepassword",
@@ -239,8 +228,8 @@ module.exports = {
         assert.ok(false, "Should Not Get Here");
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             username: "someusername",
             password: "somepassword",
@@ -276,8 +265,8 @@ module.exports = {
           assert.ok(false, "Should Not Get Here With Invalid Params");
       },
       '../config/config.js': {
-        getEnvironmentConfig: function(params){
-          assert.equal(params.environment, "someenv");
+        getEnvironmentConfig: function(environment){
+          assert.equal(environment, "someenv");
           return {
             password: "somepassword",
             url: "https://mbaas.someplace.com"
