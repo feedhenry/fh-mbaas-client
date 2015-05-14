@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.0 - 2015-05-12 - Niall Donnelly
+
+* FHMAP-377 - Fixed Submissions APIs 
+
 ## 0.2.0 - 2015-05-12 - Niall Donnelly
 
 * FHMAP-279 - Added Client APIs For Submitting Forms 
