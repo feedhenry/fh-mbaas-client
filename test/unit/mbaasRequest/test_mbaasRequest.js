@@ -64,7 +64,7 @@ module.exports = {
         assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
         assert.equal(params.method, "GET");
 
-        assert.equal(params.json, false);
+        assert.equal(params.json, true);
 
         //Return a readable strem
 

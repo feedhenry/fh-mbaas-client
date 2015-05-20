@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.1 - 2015-05-20 - Niall Donnelly
+
+* FHMAP-418 Fixed file download request to mbaas.
+
 ## 0.3.0 - 2015-05-12 - Niall Donnelly
 
 * FHMAP-377 - Fixed Submissions APIs 
