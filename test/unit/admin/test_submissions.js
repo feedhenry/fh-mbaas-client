@@ -175,6 +175,47 @@ module.exports = {
       done();
     });
   },
+  "Test Add Submission File": function (done) {
+
+    var mockReadStream = new MockReadStream();
+
+    var fileDetails = {
+      stream: mockReadStream,
+      type: "application/pdf",
+      size: 1245,
+      name: "fileName.pdf"
+    };
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function (params, cb) {
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid/fields/somefieldid/files/somefileid");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.equal(params.data, fileDetails);
+          assert.equal(params.fileRequest, true);
+          assert.equal(params.fileUploadRequest, true);
+
+
+          return cb(undefined, {});
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/admin/appforms/submissions.js', mocks);
+
+    submissionsRequest.addFile({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "somesubmissionid",
+      fieldId: "somefieldid",
+      fileId: "somefileid",
+      fileDetails: fileDetails
+    }, function (err) {
+      assert.ok(!err, "Expected No Error");
+      done();
+    });
+  },
   "Test Export Submissions": function (done) {
     var testSubSearch = {
       "formId": "someformid",

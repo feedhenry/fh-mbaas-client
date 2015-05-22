@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.2 - 2015-05-20 - Niall Donnelly
+
+* FHMAP-454 - Added Submission File Add Endpoint 
+
 ## 0.3.1 - 2015-05-20 - Niall Donnelly
 
 * FHMAP-418 Fixed file download request to mbaas.

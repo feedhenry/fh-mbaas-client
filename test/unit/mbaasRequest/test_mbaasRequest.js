@@ -121,10 +121,9 @@ module.exports = {
   "It Should Perform A File Upload Request": function(done){
     var mockReadStream = new MockReadStream();
     var mocks = {
-      'request': {
-        post: function(params, cb) {
+      'request': function(params, cb) {
           assert.equal(params.url, "https://mbaas.someplace.com/api/app/somedomain/someenv/someprojectid/someappid/some/path/to/upload/file");
-
+          assert.equal(params.method, "POST");
           assert.equal(params.headers['x-fh-env-access-key'], "somekeytoaccessmbaasenv");
           assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
 
@@ -132,7 +131,6 @@ module.exports = {
           assert.equal(params.formData["somefile.pdf"].value, mockReadStream);
 
           cb(undefined, {statusCode: 200}, {status: "ok"});
-        }
       },
       '../config/config.js': {
         getEnvironmentConfig: function(environment){
