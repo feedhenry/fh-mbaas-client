@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.3 - 2015-05-26 - Niall Donnelly
+
+* FHMAP-451 - Added Submission Creation And Complete Endpoints To Mbaas For FHC
+
 ## 0.3.2 - 2015-05-20 - Niall Donnelly
 
 * FHMAP-454 - Added Submission File Add Endpoint 
