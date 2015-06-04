@@ -128,6 +128,33 @@ module.exports = {
       done();
     });
   },
+  "Test Undeploy Form": function(done){
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb){
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid/undeploy");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
+
+          return cb(undefined, {});
+        }
+      }
+    };
+
+    var formsRequest = proxyquire('../../../lib/admin/appforms/forms.js', mocks);
+
+    formsRequest.undeploy({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "someformid"
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+      assert.ok(result, "Expected A Result");
+
+      done();
+    });
+  },
   "Test Get Form Submissions": function(done){
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {

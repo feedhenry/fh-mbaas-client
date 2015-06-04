@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.4 - 2015-06-04 - Niall Donnelly
+
+* FHMAP-492 Added Undeploy Endpoint For Admin Functionality.
+
 ## 0.3.3 - 2015-05-26 - Niall Donnelly
 
 * FHMAP-451 - Added Submission Creation And Complete Endpoints To Mbaas For FHC
