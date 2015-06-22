@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
+  
+## 0.3.5 - 2015-06-22 - Niall Donnelly
 
+* FH-300 Changed submission endpoint for forms Cloud API for getting submission files.
+  
 ## 0.3.4 - 2015-06-04 - Niall Donnelly
 
 * FHMAP-492 Added Undeploy Endpoint For Admin Functionality.
