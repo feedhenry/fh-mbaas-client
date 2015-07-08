@@ -30,6 +30,7 @@ module.exports = {
   },
   "Test Environment Initialization": function(done){
     var mbaasConf = {
+      url: "https://api.somembaas.feedhenry.com",
       host: "https://mbaas.somembaas.feedhenry.com",
       accessKey: "someaccesskey",
       project: "someprojectguid",
