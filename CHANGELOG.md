@@ -1,4 +1,8 @@
 # Component: fh-mbaas-client
+
+## 0.3.6 - 2015-07-08
+
+* FH-437 - Automatically add the mbaas url to deploy requests, rather than require it be passed in
   
 ## 0.3.5 - 2015-06-22 - Niall Donnelly
 
