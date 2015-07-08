@@ -1,7 +1,7 @@
 {
   "name": "fh-mbaas-client",
   "description": "FeedHenry MBaaS Client",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "author": "FeedHenry",
   "main": "index.js",
   "directories": {
