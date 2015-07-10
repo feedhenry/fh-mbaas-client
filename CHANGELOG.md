@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.8 - 2015-07-09
+
+* FHMAP-684 - Lookup mbaas url lookup when making mbaas requests
+
 ## 0.3.7 - 2015-07-08
 
 * FHMAP-684 - Allow explicitly setting of the mbaasUrl through the mbaas config

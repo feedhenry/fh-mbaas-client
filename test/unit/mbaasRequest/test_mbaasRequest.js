@@ -196,7 +196,8 @@ module.exports = {
           return {
             username: "someusername",
             password: "somepassword",
-            url: "https://mbaas.someplace.com"
+            url: "https://api.someplace.com",
+            __mbaasUrl: 'https://mbaas.someplace.com'
           }
         }
       }
@@ -231,7 +232,8 @@ module.exports = {
           return {
             username: "someusername",
             password: "somepassword",
-            url: "https://mbaas.someplace.com"
+            url: "https://api.someplace.com",
+            __mbaasUrl: 'https://mbaas.someplace.com'
           }
         }
       }
