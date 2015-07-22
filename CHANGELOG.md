@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.3.9 - 2015-07-22 - Niall Donnelly
+
+* FH-1435 - Remove body from get request
+
 ## 0.3.8 - 2015-07-09
 
 * FHMAP-684 - Lookup mbaas url lookup when making mbaas requests
