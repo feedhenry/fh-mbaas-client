@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.5.0 - 2015-09-25 - Craig Brookes/Graham Hillis
+
+* FH-1067 - add calls for events notifications and alerts
+
 ## 0.4.4 - 2015-09-25 - Niall Donnelly
 
 * FH-2140 - Added Mbaas Url To Migrate Db Call
