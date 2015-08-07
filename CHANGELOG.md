@@ -1,5 +1,8 @@
 # Component: fh-mbaas-client
 
+## 0.5.1 - 2015-10-07 - Craig Brookes/Graham Hillis
+* FH-1067 - now also has app event creation api
+
 ## 0.5.0 - 2015-09-25 - Craig Brookes/Graham Hillis
 
 * FH-1067 - add calls for events notifications and alerts
