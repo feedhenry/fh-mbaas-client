@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.4.1 - 2015-08-14 - Niall Donnelly
+
+* FH-1653 - Added Endpoints To Import Project Config Data.
+
 ## 0.4.0 - 2015-08-07 - Niall Donnelly
 
 * FH-418 Added Forms/Themes/Project Association Endpoints For Mbaas.
