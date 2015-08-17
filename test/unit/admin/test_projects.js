@@ -150,5 +150,77 @@ module.exports = {
       assert.equal(result._id, "someformprojectid");
       done();
     });
+  },
+  "Test Import Form Projects": function(done){
+    var mockConfig = [{
+      _id: "someprojectconfigid",
+      appId: "someprojectguid",
+      forms: ["someformid"],
+      theme: "somethemeid"
+    }];
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb){
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/import");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, mockConfig), "Expected Objects To Be Equal");
+
+          return cb(undefined, [{
+            _id: "someformprojectid"
+          }]);
+        }
+      }
+    };
+
+    var formsRequest = proxyquire('../../../lib/admin/appforms/projects.js', mocks);
+
+    formsRequest.importProjects({
+      environment: "someenv",
+      domain: "somedomain",
+      projectDetails: mockConfig
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+
+      assert.equal(result[0]._id, "someformprojectid");
+      done();
+    });
+  },
+  "Test Import Form Projects Config": function(done){
+    var mockConfig = [{
+      _id: "someprojectconfigid",
+      appId: "someprojectguid",
+      client: {},
+      cloud: {}
+    }];
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb){
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/config/import");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, mockConfig), "Expected Objects To Be Equal");
+
+          return cb(undefined, [{
+            _id: "someformprojectid"
+          }]);
+        }
+      }
+    };
+
+    var formsRequest = proxyquire('../../../lib/admin/appforms/projects.js', mocks);
+
+    formsRequest.importProjectConfig({
+      environment: "someenv",
+      domain: "somedomain",
+      config: mockConfig
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+
+      assert.equal(result[0]._id, "someformprojectid");
+      done();
+    });
   }
 };

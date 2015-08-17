@@ -147,5 +147,41 @@ module.exports = {
       assert.equal(result._id, "somethemeid");
       done();
     });
+  },
+  "Test Import Themes": function(done){
+
+    var mockTheme = {
+      _id: "somethemeid",
+      name: "Some Theme",
+      css: "somecssvals"
+    };
+
+    var mockThemes = [mockTheme];
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb){
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes/import");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, mockThemes), "Expected Theme Objects To Be Equal");
+
+          return cb(undefined, mockThemes);
+        }
+      }
+    };
+
+    var themesRequest = proxyquire('../../../lib/admin/appforms/themes.js', mocks);
+
+    themesRequest.importThemes({
+      environment: "someenv",
+      domain: "somedomain",
+      themes: mockThemes
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+
+      assert.equal(result[0]._id, "somethemeid");
+      done();
+    });
   }
 };
