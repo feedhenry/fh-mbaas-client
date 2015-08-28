@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.4.2 - 2015-08-27 - Gerard Ryan
+
+* FH-1824 - Add x-fh-service-key header to requests
+
 ## 0.4.1 - 2015-08-14 - Niall Donnelly
 
 * FH-1653 - Added Endpoints To Import Project Config Data.
@@ -23,11 +27,11 @@
 ## 0.3.6 - 2015-07-08
 
 * FH-437 - Automatically add the mbaas url to deploy requests, rather than require it be passed in
-  
+
 ## 0.3.5 - 2015-06-22 - Niall Donnelly
 
 * FH-300 Changed submission endpoint for forms Cloud API for getting submission files.
-  
+
 ## 0.3.4 - 2015-06-04 - Niall Donnelly
 
 * FHMAP-492 Added Undeploy Endpoint For Admin Functionality.
@@ -38,7 +42,7 @@
 
 ## 0.3.2 - 2015-05-20 - Niall Donnelly
 
-* FHMAP-454 - Added Submission File Add Endpoint 
+* FHMAP-454 - Added Submission File Add Endpoint
 
 ## 0.3.1 - 2015-05-20 - Niall Donnelly
 
@@ -46,11 +50,11 @@
 
 ## 0.3.0 - 2015-05-12 - Niall Donnelly
 
-* FHMAP-377 - Fixed Submissions APIs 
+* FHMAP-377 - Fixed Submissions APIs
 
 ## 0.2.0 - 2015-05-12 - Niall Donnelly
 
-* FHMAP-279 - Added Client APIs For Submitting Forms 
+* FHMAP-279 - Added Client APIs For Submitting Forms
 
 ## 0.1.0 - 2015-04-30 - Niall Donnelly
 
