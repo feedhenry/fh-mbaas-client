@@ -1,7 +1,9 @@
 # Component: fh-mbaas-client
 
-## 0.4.2 - 2015-08-27 - Gerard Ryan
+## 0.4.3 - 2015-09-11 - Gerard Ryan
+* Bump version of grunt-fh-build, so that archive with dependencies will get built
 
+## 0.4.2 - 2015-08-27 - Gerard Ryan
 * FH-1824 - Add x-fh-service-key header to requests
 
 ## 0.4.1 - 2015-08-14 - Niall Donnelly
