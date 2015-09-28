@@ -1,10 +1,13 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
 var _ = require('underscore');
+var configModule = require('../../../../lib/config/config.js');
+
 
 
 module.exports = {
   "Test Migrate Db": function(done){
+    configModule.initEnvironment("someenv", require('../../../fixtures/mock_mbaasConfig.js'));
     var mockMigrateData = {
       cacheKey: "somecachekey",
       appGuid: "appguid",
