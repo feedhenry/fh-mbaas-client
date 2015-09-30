@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.4.4 - 2015-09-11 - Niall Donnelly
+
+* FH-2097 - Added Data Sources Mbaas APIs
+
 ## 0.4.3 - 2015-09-11 - Gerard Ryan
 * Bump version of grunt-fh-build, so that archive with dependencies will get built
 
