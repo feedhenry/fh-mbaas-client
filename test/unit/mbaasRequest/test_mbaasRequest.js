@@ -15,7 +15,7 @@ module.exports = {
         assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
         assert.equal(params.method, "GET");
 
-        assert.ok(_.isEqual(params.body, {}));
+        assert.ok(_.isEqual(params.body, undefined));
         assert.equal(params.json, true);
 
         return cb(undefined, {statusCode: 200}, {
@@ -182,7 +182,7 @@ module.exports = {
         assert.equal(params.auth.pass, "somepassword");
         assert.equal(params.method, "GET");
 
-        assert.ok(_.isEqual(params.body, {}));
+        assert.ok(_.isEqual(params.body, undefined));
         assert.equal(params.json, true);
 
         return cb(undefined, {statusCode: 200}, {
