@@ -1,5 +1,9 @@
 # Component: fh-mbaas-client
 
+## 0.5.0 - 2015-10-13 - Niall Donnelly
+
+* RHMAP-2438 - Add Service Data Source Association To MBaaS
+
 ## 0.4.4 - 2015-09-11 - Niall Donnelly
 
 * FH-2097 - Added Data Sources Mbaas APIs
