@@ -7,7 +7,7 @@ module.exports = {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
         admin: function(params, cb){
-          assert.ok(params.resourcePath === "/api/metrics");
+          assert.ok(params.resourcePath === "/metrics");
           assert.ok(params.method === "GET");
           return cb(undefined, {});
         }
