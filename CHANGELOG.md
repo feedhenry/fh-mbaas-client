@@ -1,12 +1,20 @@
 # Component: fh-mbaas-client
 
-## 0.5.0 - 2015-10-13 - Niall Donnelly
+## 0.6.0 - 2015-10-13 - Niall Donnelly
 
 * RHMAP-2438 - Add Service Data Source Association To MBaaS
-
-## 0.4.4 - 2015-09-11 - Niall Donnelly
-
 * FH-2097 - Added Data Sources Mbaas APIs
+
+## 0.5.1 - 2015-10-07 - Craig Brookes/Graham Hillis
+* FH-1067 - now also has app event creation api
+
+## 0.5.0 - 2015-09-25 - Craig Brookes/Graham Hillis
+
+* FH-1067 - add calls for events notifications and alerts
+
+## 0.4.4 - 2015-09-25 - Niall Donnelly
+
+* FH-2140 - Added Mbaas Url To Migrate Db Call
 
 ## 0.4.3 - 2015-09-11 - Gerard Ryan
 * Bump version of grunt-fh-build, so that archive with dependencies will get built
