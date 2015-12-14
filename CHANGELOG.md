@@ -5,6 +5,9 @@
 * RHMAP-2438 - Add Service Data Source Association To MBaaS
 * FH-2097 - Added Data Sources Mbaas APIs
 
+## 0.5.2 - 2015-11-24 - Graham Hillis
+* RHMAP-3070 - Improve the email regex and use MBaaS when available for email
+
 ## 0.5.1 - 2015-10-07 - Craig Brookes/Graham Hillis
 * FH-1067 - now also has app event creation api
 
