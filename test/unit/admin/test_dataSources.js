@@ -1,6 +1,8 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
 var _ = require('underscore');
+var stubs = require('../../fixtures/stubs');
+var sinon = require('sinon');
 
 module.exports = {
   "Test Get Data Source": function(done){
@@ -178,6 +180,51 @@ module.exports = {
     }, function(err, result){
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
+
+      done();
+    });
+  },
+  "Test Get Data Source With Audit Logs": function(done){
+    var expectedParams = {
+      resourcePath: "/somedomain/someenv/appforms/data_sources/somedatasourceid/audit_logs",
+      method: "GET",
+      id: "somedatasourceid",
+      domain: "somedomain",
+      environment: "someenv"
+    };
+
+    var mbaasRequestStub = stubs.mbaasRequest(expectedParams, {
+      _id: "somedatasourceid",
+      name: "Some Data Source",
+      serviceGuid: "someserviceid",
+      auditLogs: [{
+        updateTimestamp: new Date(),
+        data: [{
+          key: "op1",
+          value: "Option 1",
+          selected: true
+        }]
+      }]
+    });
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: mbaasRequestStub
+      }
+    };
+
+    var dataSourceRequest = proxyquire('../../../lib/admin/appforms/dataSources.js', mocks);
+
+    dataSourceRequest.getAuditLogs({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "somedatasourceid"
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+      assert.ok(result, "Expected A Result");
+
+      assert.ok(_.isArray(result.auditLogs));
+      sinon.assert.calledOnce(mbaasRequestStub);
 
       done();
     });
