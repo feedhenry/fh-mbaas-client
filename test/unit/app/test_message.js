@@ -12,9 +12,9 @@ module.exports = {
   },
   "Post batch of messages": function(done){
     var mocks = {
-      '../../mbaasRequest/mbaasRequest.js': {
+      '../mbaasRequest/mbaasRequest.js': {
         app: function(params, cb){
-          assert.equal(params.resourcePath, "/somedomain/someenv/message/sometopic");
+          assert.equal(params.resourcePath, "/message/fhact");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
           assert.ok(_.isEqual(params.data, [{}]), "Expected Objects To Be Equal");
@@ -31,9 +31,16 @@ module.exports = {
 
     messageRequest.sendbatch({
       environment: "someenv",
-      domain: "somedomain"
+      domain: "somedomain",
+      "project":"project",
+      "app":"app",
+      "environment":"dev",
+      "topic":"fhact",
+      "data":[{}]
     }, function(err, result){
-      assert.ok(err, 'Expected Empty Error');
+      assert.ok(! err, 'did not Expect an Error');
+      assert.ok(result, "expected a result ");
+      assert.ok(result._id, "someid");
       done();
     });
   }
