@@ -228,5 +228,46 @@ module.exports = {
 
       done();
     });
+  },
+  "Test Get Single Audit Log Entry": function(done){
+    var expectedParams = {
+      resourcePath: "/somedomain/someenv/appforms/data_sources/audit_logs/someauditlogid",
+      method: "GET",
+      id: "someauditlogid",
+      domain: "somedomain",
+      environment: "someenv"
+    };
+
+    var mbaasRequestStub = stubs.mbaasRequest(expectedParams, {
+      _id: "someauditlogid",
+      updateTimestamp: new Date(),
+      data: [{
+        key: "op1",
+        value: "Option 1",
+        selected: true
+      }]
+    });
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: mbaasRequestStub
+      }
+    };
+
+    var dataSourceRequest = proxyquire('../../../lib/admin/appforms/dataSources.js', mocks);
+
+    dataSourceRequest.getAuditLogEntry({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "someauditlogid"
+    }, function(err, result){
+      assert.ok(!err, "Expected No Error");
+      assert.ok(result, "Expected A Result");
+
+      assert.equal(result._id, "someauditlogid");
+      sinon.assert.calledOnce(mbaasRequestStub);
+
+      done();
+    });
   }
 };
