@@ -43,7 +43,7 @@ module.exports = {
     configModule.initEnvironment("dev", mbaasConf);
 
     var envMbaasConfig = configModule.getEnvironmentConfig("dev");
-
+    mbaasConf.__mbaasUrl = envMbaasConfig.__mbaasUrl;
     assert.ok(_.isEqual(mbaasConf, envMbaasConfig), "Expected Equal MbaaS Configurations. Expected: " + JSON.stringify(mbaasConf) + " But Got: " + JSON.stringify(envMbaasConfig));
     done();
   }
