@@ -1,6 +1,7 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
 var _ = require('underscore');
+var sinon = require('sinon');
 var MockReadStream = require('../../fixtures/mock_readStream.js');
 var MockWriteStream = require('../../fixtures/mock_writeStream.js');
 
@@ -248,6 +249,55 @@ module.exports = {
       queryParams: testSubSearch
     }, function(err, readableStream) {
       assert.ok(!err, "Expected No Error");
+
+      var pipeCalled = false;
+      //The response from an export is a zip file containing the exported submissions
+      var mockWriteStream = new MockWriteStream();
+
+      mockWriteStream.on('pipe', function() {
+        pipeCalled = true;
+      });
+
+      readableStream.on('end', function() {
+        assert.ok(pipeCalled, "Expected The Pipe Event To Be Triggered");
+        done();
+      });
+
+      readableStream.pipe(mockWriteStream);
+    });
+  },
+  "Test Export A Single Submission As A PDF": function(done) {
+    var mockMbaasRequest = sinon.stub();
+    mockMbaasRequest.callsArgWith(1, undefined, new MockReadStream());
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: mockMbaasRequest
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/admin/appforms/submissions.js', mocks);
+
+    submissionsRequest.getSubmissionPDF({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "somesubmissionid",
+      data: {
+        coreLocation: "http://some.core.host.com"
+      }
+    }, function(err, readableStream) {
+      assert.ok(!err, "Expected No Error");
+
+      sinon.assert.calledOnce(mockMbaasRequest);
+      sinon.assert.calledWith(mockMbaasRequest, sinon.match({
+        resourcePath: "/somedomain/someenv/appforms/submissions/somesubmissionid/exportpdf",
+        method: "POST",
+        domain: "somedomain",
+        data: sinon.match({
+          coreLocation: "http://some.core.host.com"
+        }),
+        fileRequest: true
+      }));
 
       var pipeCalled = false;
       //The response from an export is a zip file containing the exported submissions
