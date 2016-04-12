@@ -1,11 +1,10 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
 var _ = require('underscore');
-var configModule = require('../../../../lib/config/config.js');
+var constants = require('../../../../lib/config/constants');
 
 module.exports = {
-  "Test Migrate Db": function(done){
-    configModule.initEnvironment("someenv", require('../../../fixtures/mock_mbaasConfig.js'));
+  "Test Migrate Db": function(done) {
     var mockMigrateData = {
       cacheKey: "somecachekey",
       appGuid: "appguid",
@@ -22,7 +21,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/apps/somedomain/someenv/somedomain-appguid-someenv/migratedb");
           assert.equal(params.method, "POST");
           assert.ok(_.isEqual(params.data, mockMigrateData), "Expected Objects To Be Equal");
@@ -34,12 +33,16 @@ module.exports = {
 
     var migrateRequest = proxyquire('../../../../lib/admin/apps/migrateDb.js', mocks);
 
-    migrateRequest({
+    var params = {
       environment: "someenv",
       domain: "somedomain",
       appname: "somedomain-appguid-someenv",
       data: mockMigrateData
-    }, function(err, result){
+    };
+
+    params[constants.MBAAS_CONF_KEY] = {__mbaasUrl: "http://test.com"};
+
+    migrateRequest(params, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result, mockMigrateResult);

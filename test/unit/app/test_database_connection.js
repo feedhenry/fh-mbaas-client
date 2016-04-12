@@ -1,19 +1,18 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
-var _ = require('underscore');
 
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "GET database connection string": function(done){
+  "GET database connection string": function(done) {
     var mocks = {
       '../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/dbconnection");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -31,7 +30,7 @@ module.exports = {
       domain: "somedomain",
       "project":"project",
       "app":"app"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(! err, 'Expected no Error');
       assert.ok(result,"expected a result");
       assert.ok(result.url === "mongodb://test:test@sdsdsd.com" , "expected the url to be correct");

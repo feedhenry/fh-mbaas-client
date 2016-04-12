@@ -4,16 +4,16 @@ var _ = require('underscore');
 
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "It Should Get Forms Config": function(done){
+  "It Should Get Forms Config": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/appforms/config");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -33,7 +33,7 @@ module.exports = {
       appId: "someappid",
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result.photoHeight, 100);

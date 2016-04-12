@@ -3,13 +3,13 @@ var assert = require('assert');
 var _ = require('underscore');
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "Test Create Theme": function(done){
+  "Test Create Theme": function(done) {
 
     var mockTheme = {
       _id: "somethemeid",
@@ -19,7 +19,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -38,14 +38,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       theme: mockTheme
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somethemeid");
       done();
     });
   },
-  "Test Deploy Theme": function(done){
+  "Test Deploy Theme": function(done) {
 
     var mockTheme = {
       _id: "somethemeid",
@@ -55,7 +55,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes/somethemeid/deploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -75,14 +75,14 @@ module.exports = {
       domain: "somedomain",
       theme: mockTheme,
       id: "somethemeid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somethemeid");
       done();
     });
   },
-  "Test Update Theme": function(done){
+  "Test Update Theme": function(done) {
 
     var mockTheme = {
       _id: "somethemeid",
@@ -92,7 +92,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes/somethemeid");
           assert.equal(params.method, "PUT");
           assert.equal(params.domain, "somedomain");
@@ -112,18 +112,18 @@ module.exports = {
       domain: "somedomain",
       theme: mockTheme,
       id: "somethemeid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somethemeid");
       done();
     });
   },
-  "Test Remove Theme": function(done){
+  "Test Remove Theme": function(done) {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes/somethemeid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
@@ -141,14 +141,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somethemeid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somethemeid");
       done();
     });
   },
-  "Test Import Themes": function(done){
+  "Test Import Themes": function(done) {
 
     var mockTheme = {
       _id: "somethemeid",
@@ -160,7 +160,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/themes/import");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -177,7 +177,7 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       themes: mockThemes
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "somethemeid");

@@ -3,16 +3,16 @@ var assert = require('assert');
 var _ = require('underscore');
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "Test Get Form": function(done){
+  "Test Get Form": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -31,17 +31,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someformid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformid");
       done();
     });
   },
-  "Test List Forms": function(done){
+  "Test List Forms": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -59,14 +59,14 @@ module.exports = {
     formsRequest.list({
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "someformid");
       done();
     });
   },
-  "Test Deploy Form": function(done){
+  "Test Deploy Form": function(done) {
     var testForm = {
       _id: "someformid",
       name: "Some Form Name"
@@ -74,7 +74,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid/deploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -94,17 +94,17 @@ module.exports = {
       domain: "somedomain",
       id: "someformid",
       form: testForm
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformid");
       done();
     });
   },
-  "Test Remove Form": function(done){
+  "Test Remove Form": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
@@ -121,17 +121,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someformid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Undeploy Form": function(done){
+  "Test Undeploy Form": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid/undeploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -148,17 +148,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someformid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Get Form Submissions": function(done){
+  "Test Get Form Submissions": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/forms/someformid/submissions");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -175,7 +175,7 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someformid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 

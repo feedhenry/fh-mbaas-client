@@ -5,10 +5,10 @@ var stubs = require('../../fixtures/stubs');
 var sinon = require('sinon');
 
 module.exports = {
-  "Test Get Data Source": function(done){
+  "Test Get Data Source": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources/somedatasourceid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -27,17 +27,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somedatasourceid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somedatasourceid");
       done();
     });
   },
-  "Test List Data Sources": function(done){
+  "Test List Data Sources": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -55,14 +55,14 @@ module.exports = {
     formsRequest.list({
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "somedatasourceid");
       done();
     });
   },
-  "Test Deploy Data Source": function(done){
+  "Test Deploy Data Source": function(done) {
     var testDataSource = {
       _id: "somedatasourceid",
       name: "Some Data Source Name"
@@ -70,7 +70,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources/somedatasourceid/deploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -90,17 +90,17 @@ module.exports = {
       domain: "somedomain",
       id: "somedatasourceid",
       dataSource: testDataSource
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somedatasourceid");
       done();
     });
   },
-  "Test Remove Data Source": function(done){
+  "Test Remove Data Source": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources/somedatasourceid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
@@ -117,21 +117,21 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somedatasourceid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Validate Data Source": function(done){
+  "Test Validate Data Source": function(done) {
     var testDataSource = {
       name: "Some Data Source Name"
     };
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources/validate");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -148,17 +148,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       dataSource: testDataSource
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Refresh Data Source": function(done){
+  "Test Refresh Data Source": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/data_sources/somedatasourceid/refresh");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -177,14 +177,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somedatasourceid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Get Data Source With Audit Logs": function(done){
+  "Test Get Data Source With Audit Logs": function(done) {
     var expectedParams = {
       resourcePath: "/somedomain/someenv/appforms/data_sources/somedatasourceid/audit_logs",
       method: "GET",
@@ -219,7 +219,7 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somedatasourceid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
@@ -229,7 +229,7 @@ module.exports = {
       done();
     });
   },
-  "Test Get Single Audit Log Entry": function(done){
+  "Test Get Single Audit Log Entry": function(done) {
     var expectedParams = {
       resourcePath: "/somedomain/someenv/appforms/data_sources/audit_logs/someauditlogid",
       method: "GET",
@@ -260,7 +260,7 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someauditlogid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 

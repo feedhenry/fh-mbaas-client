@@ -1,16 +1,18 @@
-var config = require('./lib/config/config.js');
-
-//Administrative Endpoints Form An mBaaS
-var admin = require('./lib/admin/admin.js');
-
 var logger = require('./lib/logger/logger.js');
 
-//Functions Available To Cloud Apps
-var app = require('./lib/app/app.js');
+var MbaasClient = require('./lib/MbaasClient');
+var client = null;
 
 module.exports = {
   setLogger: logger.setLogger,
-  initEnvironment: config.initEnvironment,
-  app: app,
-  admin: admin
+  //Deprecated, try not to use it. Use MbaasClient instead.
+  initEnvironment: function(environment, mbaasConfig) {
+    if (!client) {
+      client = new MbaasClient(environment, mbaasConfig);
+    }
+    //Deprecated
+    module.exports.app = client.app;
+    module.exports.admin = client.admin;
+  },
+  MbaasClient: MbaasClient
 };
