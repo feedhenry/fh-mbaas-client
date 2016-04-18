@@ -8,5 +8,4 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-fh-build');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
 };

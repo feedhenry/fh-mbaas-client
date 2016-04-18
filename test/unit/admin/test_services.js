@@ -8,10 +8,10 @@ var testService = {
 };
 
 module.exports = {
-  "It Should List Services": function(done){
+  "It Should List Services": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/services");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -27,7 +27,7 @@ module.exports = {
     servicesRequest.list({
       domain: "somedomain",
       guid: "someserviceguid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0].guid, "someserviceguid");
@@ -35,10 +35,10 @@ module.exports = {
       done();
     });
   },
-  "It Should Get A Single Service": function(done){
+  "It Should Get A Single Service": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/services/someserviceguid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -55,7 +55,7 @@ module.exports = {
     servicesRequest.get({
       domain: "somedomain",
       guid: "someserviceguid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result.guid, "someserviceguid");
@@ -65,7 +65,7 @@ module.exports = {
   "It Should Deploy A Single Service": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/services/someserviceguid/deploy");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -83,7 +83,7 @@ module.exports = {
       domain: "somedomain",
       guid: "someserviceguid",
       service: testService
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result.guid, "someserviceguid");

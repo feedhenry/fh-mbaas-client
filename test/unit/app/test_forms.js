@@ -4,16 +4,16 @@ var _ = require('underscore');
 
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "It Should List Forms": function(done){
+  "It Should List Forms": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/appforms/forms");
           assert.equal(params.method, "GET");
           assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
@@ -33,17 +33,17 @@ module.exports = {
     formsRequest.list({
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "someformid");
       done();
     });
   },
-  "It Should Get A Single Form": function(done){
+  "It Should Get A Single Form": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/appforms/forms/someformid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -63,14 +63,14 @@ module.exports = {
       id: "someformid",
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformid");
       done();
     });
   },
-  "It Should Submit Data For Single Form": function(done){
+  "It Should Submit Data For Single Form": function(done) {
     var testSubmission = {
       formId: "someformid",
       formFields: [
@@ -83,7 +83,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/appforms/forms/someformid/submitFormData");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -103,7 +103,7 @@ module.exports = {
       submission: testSubmission,
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformid");

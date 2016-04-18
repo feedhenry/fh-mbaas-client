@@ -3,13 +3,13 @@ var assert = require('assert');
 var _ = require('underscore');
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "Test Create Form Project": function(done){
+  "Test Create Form Project": function(done) {
 
     var mockProjectDetails = {
       _id: "someformprojectid",
@@ -18,7 +18,7 @@ module.exports = {
     };
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -37,14 +37,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       projectDetails: mockProjectDetails
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformprojectid");
       done();
     });
   },
-  "Test Update Form Project": function(done){
+  "Test Update Form Project": function(done) {
 
     var mockProjectDetails = {
       _id: "someformprojectid",
@@ -54,7 +54,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/someformprojectid");
           assert.equal(params.method, "PUT");
           assert.equal(params.domain, "somedomain");
@@ -74,14 +74,14 @@ module.exports = {
       domain: "somedomain",
       id: "someformprojectid",
       projectDetails: mockProjectDetails
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformprojectid");
       done();
     });
   },
-  "Test Update Form Project Config": function(done){
+  "Test Update Form Project Config": function(done) {
 
     var mockConfig = {
       _id: "someformprojectid",
@@ -93,7 +93,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/someformprojectid/config");
           assert.equal(params.method, "PUT");
           assert.equal(params.domain, "somedomain");
@@ -113,19 +113,19 @@ module.exports = {
       domain: "somedomain",
       id: "someformprojectid",
       projectConfig: mockConfig
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformprojectid");
       done();
     });
   },
-  "Test Remove Form Project": function(done){
+  "Test Remove Form Project": function(done) {
 
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/someformprojectid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
@@ -144,14 +144,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "someformprojectid"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "someformprojectid");
       done();
     });
   },
-  "Test Import Form Projects": function(done){
+  "Test Import Form Projects": function(done) {
     var mockConfig = [{
       _id: "someprojectconfigid",
       appId: "someprojectguid",
@@ -161,7 +161,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/import");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -180,14 +180,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       projectDetails: mockConfig
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "someformprojectid");
       done();
     });
   },
-  "Test Import Form Projects Config": function(done){
+  "Test Import Form Projects Config": function(done) {
     var mockConfig = [{
       _id: "someprojectconfigid",
       appId: "someprojectguid",
@@ -197,7 +197,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function(params, cb){
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/apps/config/import");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -216,7 +216,7 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       config: mockConfig
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "someformprojectid");

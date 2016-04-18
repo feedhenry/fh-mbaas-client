@@ -6,16 +6,16 @@ var MockWriteStream = require('../../fixtures/mock_writeStream.js');
 
 
 module.exports = {
-  "setUp": function (done) {
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function (done) {
+  "tearDown": function(done) {
     done();
   },
-  "Test Get Submission": function (done) {
+  "Test Get Submission": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -35,17 +35,17 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somesubmissionid"
-    }, function (err, result) {
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result._id, "somesubmissionid");
       done();
     });
   },
-  "Test List Submission": function (done) {
+  "Test List Submission": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -64,17 +64,17 @@ module.exports = {
     submissionsRequest.list({
       environment: "someenv",
       domain: "somedomain"
-    }, function (err, result) {
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "somesubmissionid");
       done();
     });
   },
-  "Test Remove Submission": function (done) {
+  "Test Remove Submission": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid");
           assert.equal(params.method, "DELETE");
           assert.equal(params.domain, "somedomain");
@@ -91,14 +91,14 @@ module.exports = {
       environment: "someenv",
       domain: "somedomain",
       id: "somesubmissionid"
-    }, function (err, result) {
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
       assert.ok(result, "Expected A Result");
 
       done();
     });
   },
-  "Test Update Submission": function (done) {
+  "Test Update Submission": function(done) {
     var testSub = {
       _id: "somesubmissionid",
       formId: "someformid"
@@ -106,7 +106,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid");
           assert.equal(params.method, "PUT");
           assert.equal(params.domain, "somedomain");
@@ -126,7 +126,7 @@ module.exports = {
       domain: "somedomain",
       id: "somesubmissionid",
       submission: testSub
-    }, function (err, result) {
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result.testVal, true);
@@ -134,7 +134,7 @@ module.exports = {
       done();
     });
   },
-  "Test Update Submission File": function (done) {
+  "Test Update Submission File": function(done) {
 
     var mockReadStream = new MockReadStream();
 
@@ -147,7 +147,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid/fields/somefieldid/files/somefileid");
           assert.equal(params.method, "PUT");
           assert.equal(params.domain, "somedomain");
@@ -170,12 +170,12 @@ module.exports = {
       fieldId: "somefieldid",
       fileId: "somefileid",
       fileDetails: fileDetails
-    }, function (err) {
+    }, function(err) {
       assert.ok(!err, "Expected No Error");
       done();
     });
   },
-  "Test Add Submission File": function (done) {
+  "Test Add Submission File": function(done) {
 
     var mockReadStream = new MockReadStream();
 
@@ -188,7 +188,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/somesubmissionid/fields/somefieldid/files/somefileid");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -211,12 +211,12 @@ module.exports = {
       fieldId: "somefieldid",
       fileId: "somefileid",
       fileDetails: fileDetails
-    }, function (err) {
+    }, function(err) {
       assert.ok(!err, "Expected No Error");
       done();
     });
   },
-  "Test Export Submissions": function (done) {
+  "Test Export Submissions": function(done) {
     var testSubSearch = {
       "formId": "someformid",
       "clauseOperator": "and",
@@ -225,7 +225,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/export");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -246,18 +246,18 @@ module.exports = {
       domain: "somedomain",
       id: "somesubmissionid",
       queryParams: testSubSearch
-    }, function (err, readableStream) {
+    }, function(err, readableStream) {
       assert.ok(!err, "Expected No Error");
 
       var pipeCalled = false;
       //The response from an export is a zip file containing the exported submissions
       var mockWriteStream = new MockWriteStream();
 
-      mockWriteStream.on('pipe', function(){
+      mockWriteStream.on('pipe', function() {
         pipeCalled = true;
       });
 
-      readableStream.on('end', function(){
+      readableStream.on('end', function() {
         assert.ok(pipeCalled, "Expected The Pipe Event To Be Triggered");
         done();
       });
@@ -265,7 +265,7 @@ module.exports = {
       readableStream.pipe(mockWriteStream);
     });
   },
-  "Test Search Submissions": function (done) {
+  "Test Search Submissions": function(done) {
     var testSubSearch = {
       "formId": "someformid",
       "clauseOperator": "and",
@@ -274,7 +274,7 @@ module.exports = {
 
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        admin: function (params, cb) {
+        admin: function(params, cb) {
           assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/search");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -296,7 +296,7 @@ module.exports = {
       domain: "somedomain",
       id: "somesubmissionid",
       queryParams: testSubSearch
-    }, function (err, result) {
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result[0]._id, "somesubmissionid");

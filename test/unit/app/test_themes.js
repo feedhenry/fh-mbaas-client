@@ -4,16 +4,16 @@ var _ = require('underscore');
 
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "It Should Get A Single Theme": function(done){
+  "It Should Get A Single Theme": function(done) {
     var mocks = {
       '../../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/appforms/themes");
           assert.equal(params.method, "GET");
           assert.equal(params.domain, "somedomain");
@@ -32,7 +32,7 @@ module.exports = {
     themeRequest.get({
       environment: "someenv",
       domain: "somedomain"
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(!err, "Expected No Error");
 
       assert.equal(result.name, "Some Theme Name");

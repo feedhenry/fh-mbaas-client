@@ -4,16 +4,16 @@ var _ = require('underscore');
 
 
 module.exports = {
-  "setUp": function(done){
+  "setUp": function(done) {
     done();
   },
-  "tearDown": function(done){
+  "tearDown": function(done) {
     done();
   },
-  "Post batch of messages": function(done){
+  "Post batch of messages": function(done) {
     var mocks = {
       '../mbaasRequest/mbaasRequest.js': {
-        app: function(params, cb){
+        app: function(params, cb) {
           assert.equal(params.resourcePath, "/message/fhact");
           assert.equal(params.method, "POST");
           assert.equal(params.domain, "somedomain");
@@ -34,10 +34,9 @@ module.exports = {
       domain: "somedomain",
       "project":"project",
       "app":"app",
-      "environment":"dev",
       "topic":"fhact",
       "data":[{}]
-    }, function(err, result){
+    }, function(err, result) {
       assert.ok(! err, 'did not Expect an Error');
       assert.ok(result, "expected a result ");
       assert.ok(result._id, "someid");
