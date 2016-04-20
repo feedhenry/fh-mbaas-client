@@ -1,6 +1,7 @@
 var proxyquire = require('proxyquire');
 var assert = require('assert');
 var _ = require('underscore');
+var sinon = require('sinon');
 var MockReadStream = require('../../fixtures/mock_readStream.js');
 var MockWriteStream = require('../../fixtures/mock_writeStream.js');
 var constants = require('../../../lib/config/constants');
@@ -282,6 +283,47 @@ module.exports = {
       //Checking the error message
       assert.ok(err.message.indexOf("username")  > -1, "Expected The username param key to be specified in the error");
       assert.ok(err.message.toLowerCase().indexOf("config") > -1, "Expected The error message to reference config");
+
+      done();
+    });
+  },
+  "It Should Add Pagination Params Where Required": function(done) {
+    var requestStub = sinon.stub().yields();
+
+    var mocks = {
+      'request': requestStub
+    };
+
+    var mbaasConf = {
+      username: "someusername",
+      password: "somepassword",
+      url: "https://api.someplace.com",
+      __mbaasUrl: 'https://mbaas.someplace.com'
+    };
+
+    var params = {
+      environment: "someenv",
+      domain: "somedomain",
+      resourcePath: "/some/path/to/resource",
+      data: {},
+      method: "GET",
+      paginate: {
+        page: 2,
+        limit: 20
+      }
+    };
+
+    params[constants.MBAAS_CONF_KEY] = mbaasConf;
+
+    var mbaasRequest = proxyquire('../../../lib/mbaasRequest/mbaasRequest.js', mocks);
+
+    mbaasRequest.admin(params, function(err) {
+      assert.ok(!err, "Expected No Error: " + JSON.stringify(err));
+
+      sinon.assert.calledOnce(requestStub);
+      sinon.assert.calledWith(requestStub, sinon.match({
+        url: "https://mbaas.someplace.com/api/mbaas/some/path/to/resource?page=2&limit=20"
+      }, sinon.match.func));
 
       done();
     });

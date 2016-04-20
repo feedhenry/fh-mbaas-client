@@ -2,6 +2,10 @@
   "env": {
     "node": true
   },
+  "globals": {
+    "describe": true,
+    "it": true
+  },
   "extends": "eslint:recommended",
   "rules": {
     "array-callback-return": "warn",
