@@ -44,6 +44,20 @@ describe('Adding Pagination Params', function() {
     done();
   });
 
+  it("Filter Only", function(done) {
+    var testFilterVal = 'testFilterVal';
+    var expectedUrl = baseUrl + "?filter=" + testFilterVal;
+
+    var generatedUrl = addPaginationUrlParams(baseUrl, {
+      paginate: {
+        filter: testFilterVal
+      }
+    });
+
+    assert.equal(expectedUrl, generatedUrl);
+    done();
+  });
+
   it("None", function(done) {
     var expectedUrl = baseUrl;
 
