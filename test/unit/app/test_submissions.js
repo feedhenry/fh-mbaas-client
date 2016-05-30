@@ -186,5 +186,91 @@ module.exports = {
       assert.equal(result._id, "somesubmissionid");
       done();
     });
+  },
+  "It Should Export CSV For A Submission Export": function(done){
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        app: function(params, cb){
+          assert.equal(params.resourcePath, "/appforms/submissions/export");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.equal(params.data.appId, "projectId");
+
+          return cb(undefined, new MockReadStream());
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/app/appforms/submissions.js', mocks);
+
+    submissionsRequest.exportCSV({
+      id: "somesubmissionid",
+      environment: "someenv",
+      domain: "somedomain",
+      queryParams: {
+        "appId" : "projectId",
+        "subid": "subid",
+        "formId": "formId",
+        "fieldHeader": "fieldHeader",
+        "downloadUrl": "url",
+        "wantRestrictions": false
+      }
+    }, function(err, readableStream){
+      assert.ok(!err, "Expected No Error");
+      var pipeCalled = false;
+      //The response from an export is a zip file containing the exported submissions
+      var mockWriteStream = new MockWriteStream();
+
+      mockWriteStream.on('pipe', function(){
+        pipeCalled = true;
+      });
+
+      readableStream.on('end', function(){
+        assert.ok(pipeCalled, "Expected The Pipe Event To Be Triggered");
+        done();
+      });
+
+      readableStream.pipe(mockWriteStream);
+    });
+  },
+  "It Should Export PDF For A Submission Export": function(done){
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        app: function(params, cb){
+          assert.equal(params.resourcePath, "/appforms/submissions/somesubmissionid/exportpdf");
+          assert.equal(params.method, "GET");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
+
+          return cb(undefined, new MockReadStream());
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/app/appforms/submissions.js', mocks);
+
+    submissionsRequest.exportSinglePDF({
+      id: "somesubmissionid",
+      environment: "someenv",
+      domain: "somedomain"
+    }, function(err, readableStream){
+      assert.ok(!err, "Expected No Error");
+      assert.ok(!err, "Expected No Error");
+      var pipeCalled = false;
+      //The response from an export is a zip file containing the exported submissions
+      var mockWriteStream = new MockWriteStream();
+
+      mockWriteStream.on('pipe', function(){
+        pipeCalled = true;
+      });
+
+      readableStream.on('end', function(){
+        assert.ok(pipeCalled, "Expected The Pipe Event To Be Triggered");
+        done();
+      });
+
+      readableStream.pipe(mockWriteStream);
+    });
   }
 };
