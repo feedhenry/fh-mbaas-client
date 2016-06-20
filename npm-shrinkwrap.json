@@ -1,6 +1,6 @@
 {
   "name": "fh-mbaas-client",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "dependencies": {
     "bunyan": {
       "version": "0.22.0",
