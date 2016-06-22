@@ -327,5 +327,49 @@ module.exports = {
 
       done();
     });
+  },
+  "It Should respond with a relevant error message when an mbaas is unreachable": function(done){
+    var requestStub = sinon.stub().callsArgWith(1, undefined, {
+      statusCode: 503
+    });
+
+    var mockEnvLabel = "Some Environment Label";
+
+    var mocks = {
+      'request': requestStub
+    };
+
+    var mbaasConf = {
+      username: "someusername",
+      password: "somepassword",
+      url: "https://api.someplace.com",
+      __mbaasUrl: 'https://mbaas.someplace.com',
+      _label: mockEnvLabel
+    };
+
+    var params = {
+      environment: "someenv",
+      domain: "somedomain",
+      resourcePath: "/some/path/to/resource",
+      data: {},
+      method: "GET",
+      paginate: {
+        page: 2,
+        limit: 20
+      }
+    };
+
+    params[constants.MBAAS_CONF_KEY] = mbaasConf;
+
+    var mbaasRequest = proxyquire('../../../lib/mbaasRequest/mbaasRequest.js', mocks);
+
+    mbaasRequest.admin(params, function(err) {
+      assert.ok(err, "Expected An Error when the response is 503");
+      assert.ok(err.message.indexOf(mockEnvLabel) > -1, "Expected the enviroment label to be displayed in the error message");
+
+      sinon.assert.calledOnce(requestStub);
+
+      done();
+    });
   }
 };
