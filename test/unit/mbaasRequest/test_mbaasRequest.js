@@ -5,6 +5,7 @@ var sinon = require('sinon');
 var MockReadStream = require('../../fixtures/mock_readStream.js');
 var MockWriteStream = require('../../fixtures/mock_writeStream.js');
 var constants = require('../../../lib/config/constants');
+var log = require('../../../lib/logger/logger').getLogger();
 
 
 module.exports = {
