@@ -26,5 +26,5 @@
     "proxyquire": "0.4.1",
     "sinon": "^1.17.2"
   },
-  "license": "Copyright (c) 2014 FeedHenry Ltd, All Rights Reserved."
+  "license": "Apache-2.0"
 }
