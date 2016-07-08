@@ -266,6 +266,111 @@ module.exports = {
       readableStream.pipe(mockWriteStream);
     });
   },
+  "Test Export Submissions Async": function(done) {
+    var testSubSearch = {
+      "formId": "someformid",
+      "clauseOperator": "and",
+      "queryFields": {"clauses": [{"fieldId": "somefieldid", "restriction": "is", "value": "sometextval"}]}
+    };
+
+    var mockResponse = {
+      status: 'inprogress',
+      message: "Submission export started"
+    };
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb) {
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/export/async");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.equal(params.data, testSubSearch);
+          assert.ok(!params.fileUploadRequest, "Expected No File Upload Request");
+
+
+          return cb(undefined, mockResponse);
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/admin/appforms/submissions.js', mocks);
+
+    submissionsRequest.exportAsync({
+      environment: "someenv",
+      domain: "somedomain",
+      id: "somesubmissionid",
+      queryParams: testSubSearch
+    }, function(err, response) {
+      assert.ok(!err, "Expected No Error");
+
+      assert.strictEqual(mockResponse, response, "Expected a status response");
+      done();
+    });
+  },
+  "Test Get Submission CSV Export Status": function(done) {
+
+    var mockResponse = {
+      status: 'inprogress',
+      message: "Submission in progress"
+    };
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb) {
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/export/async/status");
+          assert.equal(params.method, "GET");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
+
+          return cb(undefined, mockResponse);
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/admin/appforms/submissions.js', mocks);
+
+    submissionsRequest.getCSVExportStatus({
+      environment: "someenv",
+      domain: "somedomain"
+    }, function(err, response) {
+      assert.ok(!err, "Expected No Error");
+
+      assert.equal(mockResponse, response, "Expected A Status Response");
+      done();
+    });
+  },
+  "Test Reset Submission CSV Export": function(done) {
+
+    var mockResponse = {
+      status: 'reset',
+      message: "Submission is reset"
+    };
+
+    var mocks = {
+      '../../mbaasRequest/mbaasRequest.js': {
+        admin: function(params, cb) {
+          assert.equal(params.resourcePath, "/somedomain/someenv/appforms/submissions/export/async/reset");
+          assert.equal(params.method, "POST");
+          assert.equal(params.domain, "somedomain");
+          assert.ok(_.isEqual(params.data, {}), "Expected Objects To Be Equal");
+
+          return cb(undefined, mockResponse);
+        }
+      }
+    };
+
+    var submissionsRequest = proxyquire('../../../lib/admin/appforms/submissions.js', mocks);
+
+    submissionsRequest.resetCSVExportStatus({
+      environment: "someenv",
+      domain: "somedomain"
+    }, function(err, response) {
+      assert.ok(!err, "Expected No Error");
+
+      assert.equal(mockResponse, response, "Expected A Status Response");
+      done();
+    });
+  },
   "Test Export A Single Submission As A PDF": function(done) {
     var mockMbaasRequest = sinon.stub();
     mockMbaasRequest.callsArgWith(1, undefined, new MockReadStream());
