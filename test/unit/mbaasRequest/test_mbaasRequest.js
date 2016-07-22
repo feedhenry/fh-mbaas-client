@@ -9,6 +9,9 @@ var log = require('../../../lib/logger/logger').getLogger();
 
 
 module.exports = {
+  before: function(done) {
+    log.logger.setRequestId('some-request-id', done);
+  },
   "It Should Perform App MbaaS Request": function(done) {
     var mocks = {
       'request': function(params, cb) {
@@ -16,6 +19,7 @@ module.exports = {
 
         assert.equal(params.headers['x-fh-env-access-key'], "somekeytoaccessmbaasenv");
         assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
+        assert.equal(params.headers[log.logger.requestIdHeader], "some-request-id");
         assert.equal(params.method, "GET");
 
         assert.ok(_.isEqual(params.body, undefined));
@@ -63,6 +67,7 @@ module.exports = {
 
         assert.equal(params.headers['x-fh-env-access-key'], "somekeytoaccessmbaasenv");
         assert.equal(params.headers['x-fh-auth-app'], "someappapikey");
+        assert.equal(params.headers['X-FH-REQUEST-ID'], "some-request-id");
         assert.equal(params.method, "GET");
 
         assert.equal(params.json, true);
