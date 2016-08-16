@@ -1,14 +1,14 @@
 {
   "name": "fh-mbaas-client",
   "description": "FeedHenry MBaaS Client",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "author": "FeedHenry",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
   "engines": {
-    "node": ">=0.8 < 0.11"
+    "node": "4.4"
   },
   "dependencies": {
     "fh-logger": "0.5.0",
