@@ -9,7 +9,7 @@ var log = require('../../../lib/logger/logger').getLogger();
 
 
 module.exports = {
-  before: function(done) {
+  beforeEach: function(done) {
     log.logger.setRequestId('some-request-id', done);
   },
   "It Should Perform App MbaaS Request": function(done) {
