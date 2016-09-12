@@ -334,7 +334,7 @@ module.exports = {
       done();
     });
   },
-  "It Should respond with a relevant error message when an mbaas is unreachable": function(done){
+  "It Should respond with a relevant error message when an mbaas is unreachable": function(done) {
     var requestStub = sinon.stub().callsArgWith(1, undefined, {
       statusCode: 503
     });
@@ -375,6 +375,100 @@ module.exports = {
 
       sinon.assert.calledOnce(requestStub);
 
+      done();
+    });
+  },
+  "It Should respond with a relevant error message when an mbaas request is timing out": function(done) {
+
+    var mockEnvLabel = "Some Environment Label";
+    var mockErrMessage = "MBaaS environment is not reachable";
+    var statusCode = "501";
+
+    var err = {"code": "ETIMEDOUT"};
+    var mocks = {
+      'request': function(params, cb) {
+        return cb(err, {statusCode: statusCode}, {
+        });
+
+      }
+    };
+
+    var mbaasConf = {
+      username: "someusername",
+      password: "somepassword",
+      url: "https://api.someplace.com",
+      __mbaasUrl: 'https://mbaas.someplace.com',
+      _label: mockEnvLabel
+    };
+
+    var params = {
+      environment: "someenv",
+      domain: "somedomain",
+      resourcePath: "/some/path/to/resource",
+      data: {},
+      method: "GET",
+      paginate: {
+        page: 2,
+        limit: 20
+      }
+    };
+
+    params[constants.MBAAS_CONF_KEY] = mbaasConf;
+
+    var mbaasRequest = proxyquire('../../../lib/mbaasRequest/mbaasRequest.js', mocks);
+
+    mbaasRequest.admin(params, function(err) {
+      assert.ok(err, "Expected an error");
+      assert.ok(err.httpCode.indexOf(statusCode) > -1, "Expected the returned status code to be " + statusCode);
+      assert.ok(err.message.indexOf(mockEnvLabel) > -1, "Expected the enviroment label to be displayed in the error message");
+      assert.ok(err.message.indexOf(mockErrMessage) > -1, "Expected an 'MbaaS unavailable' to be displayed in the error message");
+      done();
+    });
+  },
+  "It Should respond with a relevant error message when an mbaas address is not found": function(done) {
+
+    var mockEnvLabel = "Some Environment Label";
+    var mockErrMessage = "MBaaS environment is not reachable";
+    var statusCode = "502";
+
+    var err = {"code": "ENOTFOUND"};
+    var mocks = {
+      'request': function(params, cb) {
+        return cb(err, {statusCode: statusCode}, {
+        });
+
+      }
+    };
+
+    var mbaasConf = {
+      username: "someusername",
+      password: "somepassword",
+      url: "https://api.someplace.com",
+      __mbaasUrl: 'https://mbaas.someplace.com',
+      _label: mockEnvLabel
+    };
+
+    var params = {
+      environment: "someenv",
+      domain: "somedomain",
+      resourcePath: "/some/path/to/resource",
+      data: {},
+      method: "GET",
+      paginate: {
+        page: 2,
+        limit: 20
+      }
+    };
+
+    params[constants.MBAAS_CONF_KEY] = mbaasConf;
+
+    var mbaasRequest = proxyquire('../../../lib/mbaasRequest/mbaasRequest.js', mocks);
+
+    mbaasRequest.admin(params, function(err) {
+      assert.ok(err, "Expected an error");
+      assert.ok(err.httpCode.indexOf(statusCode) > -1, "Expected the returned status code to be " + statusCode);
+      assert.ok(err.message.indexOf(mockEnvLabel) > -1, "Expected the enviroment label to be displayed in the error message");
+      assert.ok(err.message.indexOf(mockErrMessage) > -1, "Expected an 'MbaaS unavailable' to be displayed in the error message");
       done();
     });
   }
