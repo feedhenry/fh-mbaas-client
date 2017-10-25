@@ -1,6 +1,6 @@
 {
   "name": "fh-mbaas-client",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "dependencies": {
     "fh-logger": {
       "version": "0.5.0",
