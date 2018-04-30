@@ -1,11 +1,24 @@
+'use strict';
+
 module.exports = function(grunt) {
 
+  // Project Configuration
   grunt.initConfig({
-    jshint: {
-      all: ['index.js', 'lib/**/*.js', 'test/**/**/*.js']
-    },
-    unit: ['mocha -A -u exports --recursive -t 10000 ./test/unit']
+    unit: ['mocha -A -u exports --recursive -t 10000 ./test/unit'],
+    integrate:['mocha -A -u exports --recursive -t 10000 ./test/integrate'],
+    accept:['mocha -A -u exports --recursive -t 10000 ./test/accept'],
+    eslint: {
+      options: {
+        configFile: '.eslintrc.json'
+      },
+      target: ['lib/**/*.js']
+    }
   });
 
   grunt.loadNpmTasks('grunt-fh-build');
+
+  grunt.registerTask('test', ['eslint','fh:test']);
+  grunt.registerTask('unit', ['eslint', 'fh:unit']);
+  grunt.registerTask('dist', ['fh:dist']);
+  grunt.registerTask('default', ['fh:default']);
 };
