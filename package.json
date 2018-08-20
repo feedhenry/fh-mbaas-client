@@ -8,13 +8,13 @@
     "lib": "lib"
   },
   "engines": {
-    "node": "4.4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "grunt fh:test"
   },
   "dependencies": {
-    "fh-logger": "^0.5.4",
+    "fh-logger": "^0.5.5",
     "request": "^2.81.0",
     "underscore": "^1.8.0"
   },
